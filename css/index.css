@@ -1,8 +1,0 @@
-img {
-    max-width: 215px;
-    max-height: 215px;
-    width: auto;
-    height: 100%;
-    background-size: cover; /* 使用cover來等比例縮放圖片，並填滿容器 */
-    /* align-items: center; */
-}
