@@ -1,4 +1,4 @@
-const url = 'http://oliver.hopto.org/wordpress/'
+const url = 'https://oliver0502api.com/'
 
 // 檢查是否有使用者資料
 var userID = localStorage.getItem('user_ID');
