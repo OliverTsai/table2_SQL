@@ -4,7 +4,7 @@ $(document).ready(function() {
     // 發送 AJAX 請求獲取文章數據
     function showSelectedFruit() {
         var selectedCategory = $('#category').val();
-        var url = 'http://oliver.hopto.org/wordpress/wp-json/wp/v2/posts';
+        var url = 'https://oliver0502api.com/wp-json/wp/v2/posts';
 
         if (selectedCategory !== 'all') {
             url += '?categories=' + selectedCategory;
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
                     // 發送 AJAX 請求獲取特色圖片的URL
                     $.ajax({
-                        url: 'http://oliver.hopto.org/wordpress/wp-json/wp/v2/media/' + featuredMediaId,
+                        url: 'https://oliver0502api.com/wp-json/wp/v2/media/' + featuredMediaId,
                         method: 'GET',
                         success: function(mediaResponse) {
                             var featuredImageUrl = mediaResponse.source_url;
