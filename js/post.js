@@ -10,7 +10,7 @@ function displayPostContent() {
 
     // Send AJAX request to get post data
     $.ajax({
-        url: 'http://oliver.hopto.org/wordpress/wp-json/wp/v2/posts/' + postId,
+        url: 'https://oliver0502api.com/wp-json/wp/v2/posts/' + postId,
         method: 'GET',
         success: function(response) {
             const title = response.title.rendered;
@@ -19,7 +19,7 @@ function displayPostContent() {
 
             // Send AJAX request to get featured image URL
             $.ajax({
-                url: 'http://oliver.hopto.org/wordpress/wp-json/wp/v2/media/' + featuredMediaId,
+                url: 'https://oliver0502api.com/wp-json/wp/v2/media/' + featuredMediaId,
                 method: 'GET',
                 success: function(mediaResponse) {
                     const featuredImageUrl = mediaResponse.source_url;
