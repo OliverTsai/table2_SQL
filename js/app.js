@@ -103,7 +103,11 @@ logoutButton.addEventListener('click', async () => {
 // 新增產品
 const uploadButton = document.getElementById('save_text');
 uploadButton.addEventListener('click', uploadFile);
+
 async function uploadFile() {
+    // 禁用按鈕
+    uploadButton.disabled = true;
+
     const file = document.getElementById('file').files[0];
     const title = document.getElementById('title').value;
     const text = document.getElementById('text').value;
@@ -123,7 +127,7 @@ async function uploadFile() {
       
         // 圖片ID存入本地端
         localStorage.setItem('imageID', data.data.id);
-        console.log(data)
+        console.log(data.data.id)
       
         if (data.success) {
             // 新增標題和文章
@@ -148,6 +152,8 @@ async function uploadFile() {
                 } else {
                     console.log('文章判定失敗');
                 }
+                // 啟用按鈕
+                uploadButton.disabled = false;
               })
               .catch(error => {
                 console.log('文章新增失敗');
@@ -156,11 +162,15 @@ async function uploadFile() {
         } else {
             console.log('沒有圖片成功提示');
             console.log(data);
+            // 啟用按鈕
+            uploadButton.disabled = false;
         }
       })
       .catch(error => {
         console.log('圖片新增失敗')
         console.log(data)
+        // 啟用按鈕
+        uploadButton.disabled = false;
       });
 
     
