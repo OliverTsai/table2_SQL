@@ -9,7 +9,6 @@ $(document).ready(function() {
             url += '?categories=' + selectedCategory;
         }
 
-        // 添加時間戳以禁用快取
         var timestamp = new Date().getTime();
         url += (url.indexOf('?') === -1 ? '?' : '&') + 'timestamp=' + timestamp;
 
@@ -17,7 +16,8 @@ $(document).ready(function() {
         .then(response => response.json())
         .then(posts => {
             tableRow.empty();
-            var count = 0;
+
+            var row = $('<div class="row">');  // 創建新的Bootstrap行
 
             posts.forEach(post => {
                 var title = post.title.rendered;
@@ -25,33 +25,44 @@ $(document).ready(function() {
                 var money = post.x_metadata.amount;
                 var postId = post.id;
 
-                // 也在這裡添加時間戳
-                var mediaUrl = 'https://oliver0502api.com/wp-json/wp/v2/media/' + featuredMediaId;
+                var mediaUrl = 'https://oliver0502api.com/wp-json/wp/v2/media/' + featuredMediaId+ '?size=medium';
                 mediaUrl += (mediaUrl.indexOf('?') === -1 ? '?' : '&') + 'timestamp=' + timestamp;
-
 
                 fetch(mediaUrl)
                 .then(response => response.json())
                 .then(mediaResponse => {
                     var featuredImageUrl = mediaResponse.source_url;
 
-                    var row = $('<td class="col-md-3">');
-                    var imageCell = $('<div class="container">').html('<a href="post.html?id=' + postId + '"><img src="' + featuredImageUrl + '"></a>');
-                    var titleCell = $('<p>').text(title);
-                    var moneyCell = $('<p>').text('價格:' + money);
+                    var col = $('<div class="col">');  // 使用col
 
-                    row.append(imageCell, titleCell, moneyCell);
-                    tableRow.append(row);
+                    var card = $('<div class="card shadow-sm">');
+                    var imageCell = $('<div class="img" text-align: center>').html('<a href="post.html?id=' + postId + '"><img class="img-fluid" src="' + featuredImageUrl + '"></a>');
+                    var card_body = $('<div class="card-body">');
 
-                    count++;
-                    if (count % 4 == 0) {
-                        tableRow.append('</tr><tr id="posts-row" class="row">');
+                    var titleCell = $('<p class="card-text">').text(title);
+                    var moneyCell = $('<p class="card-text">').text('價格:' + money);
+
+                    card_body.append(titleCell, moneyCell);
+                    card.append(imageCell, card_body);
+                    col.append(card);
+
+                    row.append(col);  // 將每個col添加到行中
+
+                    // 如果已經有3個col在行中，創建新的行
+                    if (row.children().length === 3) {
+                        tableRow.append(row);
+                        row = $('<div class="row">');  // 重新創建新的Bootstrap行
                     }
                 })
                 .catch(error => {
                     console.log('獲取特色圖片URL失敗：', error);
                 });
             });
+
+            // 如果最後一行沒有填滿3個col，則添加該行
+            if (row.children().length > 0) {
+                tableRow.append(row);
+            }
         })
         .catch(error => {
             console.log('請求失敗：', error);
