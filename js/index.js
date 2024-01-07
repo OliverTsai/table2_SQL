@@ -33,7 +33,14 @@ $(document).ready(function() {
                 .then(mediaResponse => {
                     var featuredImageUrl = mediaResponse.source_url;
 
-                    var col = $('<div class="col">');  // 使用col
+                    var col;
+        
+                    // 使用Bootstrap的斷點來判斷螢幕大小
+                    if ($(window).width() >= 992) {  // 大於或等於992px的大屏幕
+                        col = $('<div class="col-lg-4 grid-item">');
+                    } else {  // 小於992px的較小螢幕
+                        col = $('<div class="col-md-6 grid-item">');
+                    }
 
                     var card = $('<div class="card shadow-sm">');
                     var imageCell = $('<div class="img" text-align: center>').html('<a href="post.html?id=' + postId + '"><img class="img-fluid" src="' + featuredImageUrl + '"></a>');
