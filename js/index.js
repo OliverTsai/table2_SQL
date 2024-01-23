@@ -41,7 +41,7 @@ $(document).ready(function() {
                     if ($(window).width() >= 1000) {  // 大於或等於992px的大屏幕
                         col = $('<div class="col-lg-4 grid-item">');
                     } else {  // 小於992px的較小螢幕
-                        col = $('<div class="col-6 grid-item">');
+                        col = $('<div class="col-12 grid-item">');
                     }
 
                     var card = $('<div class="card">');
