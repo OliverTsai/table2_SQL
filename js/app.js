@@ -3,38 +3,44 @@ const apiUrl = 'https://oliver0502api.com/';
 async function init() {
     try {
         const token = localStorage.getItem('token');
+        // console.log(token)
+        fetchUserInfo(token);
         if (token) {
-            const userInfo = await fetchUserInfo(token);
-            displayUserInfo(userInfo);
+            displayUserInfo();
             setupUserButtons();
         } else {
             setupLoginRegisterButtons();
         }
     } catch (error) {
-        handleInitError(error);
+        handleInit();
     }
 }
 
-// 抓個人資料
+// 檢查憑證
 function fetchUserInfo(token) {
-    return fetch(`${apiUrl}wp-json/wp/v2/users/me`, {
-        method: 'GET',
+    fetch(`${apiUrl}wp-json/jwt-auth/v1/token/validate`, {
+        method: 'POST',
         headers: {
-            'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
         },
     })
     .then(response => response.json())
-    .then(userInfo => {
-        localStorage.setItem('name', userInfo.name);
-        localStorage.setItem('id', userInfo.id);
-        return userInfo;
-    });
+    .then(tokenInfo => {
+        console.log(tokenInfo);
+        // 在這裡處理 Token 狀態的資訊
+        if(!tokenInfo.data){
+            alert('時間太久 重新登入');
+            handleInit()
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 // 顯示個人資料
-function displayUserInfo(userInfo) {
+function displayUserInfo() {
+    const userName = localStorage.getItem('user_Name');
     const userEmail = document.createElement('text');
-    userEmail.textContent = 'Hi, ' + userInfo.name;
+    userEmail.textContent = 'Hi, ' + userName;
     document.getElementById('user_name').appendChild(userEmail);
 }
 
@@ -74,10 +80,16 @@ function setupLoginRegisterButtons() {
     document.getElementById('register').appendChild(registerButton);
 }
 
-function handleInitError(error) {
+function handleInit() {
+    // 清除 token 和相關資訊
     localStorage.removeItem('token');
-    alert('時間過久! 重新登入!');
-    window.location.reload();
+    localStorage.removeItem('user_ID');
+    localStorage.removeItem('user_Name');
+    localStorage.removeItem('user_Mail');
+    localStorage.removeItem('user_Roles');
+
+    // 重新導向到登入頁面
+    window.location.href = 'index.html';
 }
 
 // 登入
@@ -99,10 +111,38 @@ loginButton.addEventListener('click', async () => {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
-                token = data.token;
-                localStorage.setItem('token', token);
-                window.location.reload();
+                if(data.token){
+                    // console.log(data)
+                    token = data.token;
+                    localStorage.setItem('token', token);
+                    fetch(`${apiUrl}wp-json/wp/v2/rae/user/login`,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            'username': loginName,
+                            'password': loginPassword
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        localStorage.setItem('user_ID', data.user.ID);
+                        localStorage.setItem('user_Name', data.user.data.user_nicename);
+                        localStorage.setItem('user_Mail', data.user.data.user_email);
+                        localStorage.setItem('user_Roles', data.user.roles);
+                        alert('登入成功!');
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('抓取資料失敗：', error);
+                        alert('抓取資料失敗。請稍後再試。');
+                    });
+                }else{
+                    lert('帳密錯誤!');
+                    window.location.reload();
+                }
+                
             })
             .catch(error => console.error('Login error:', error));
 });
@@ -143,13 +183,7 @@ registerButton.addEventListener('click', async () => {
 // 登出
 const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', async () => {
-    // 清除 token 和相關資訊
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_ID');
-    localStorage.removeItem('user_Name');
-
-    // 重新導向到登入頁面
-    window.location.href = 'index.html';
+    handleInit()
 });
 
 init();
