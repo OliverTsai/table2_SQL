@@ -139,12 +139,16 @@ loginButton.addEventListener('click', async () => {
                         alert('抓取資料失敗。請稍後再試。');
                     });
                 }else{
-                    lert('帳密錯誤!');
+                    lert('沒有憑證!');
                     window.location.reload();
                 }
                 
             })
-            .catch(error => console.error('Login error:', error));
+            .catch(error => {
+                console.error('Login error:', error)
+                lert('帳密錯誤!');
+                window.location.reload();
+            });
 });
 
 // 註冊
