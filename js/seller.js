@@ -1,4 +1,4 @@
-const sellerUrl = 'http://localhost/wordpress/';
+const sellerUrl = 'https://oliver0502api.com/';
 const userID = localStorage.getItem('user_ID');
 const tableRow = $('#members-articles');
 
@@ -59,7 +59,7 @@ function renderUserArticles(posts) {
 }
 
 function displayNoArticlesMessage() {
-    $('#members-articles').html('<p>此成員沒有發布文章。</p>');
+    $('#members-articles').html('<p>你還沒有新增商品。</p>');
 }
 
 // 新增產品
