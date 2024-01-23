@@ -1,5 +1,5 @@
 const sellerUrl = 'http://localhost/wordpress/';
-const userID = localStorage.getItem('id');
+const userID = localStorage.getItem('user_ID');
 const tableRow = $('#members-articles');
 
 $(document).ready(() => {
