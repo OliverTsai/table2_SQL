@@ -7,6 +7,7 @@ $(document).ready(function() {
 
         if (selectedCategory !== 'all') {
             url += '?categories=' + selectedCategory;
+            console.log(selectedCategory)
         }
 
         var timestamp = new Date().getTime();
@@ -15,6 +16,7 @@ $(document).ready(function() {
         fetch(url)
         .then(response => response.json())
         .then(posts => {
+            console.log(posts)
             tableRow.empty();
 
             var row = $('<div class="row">');  // 創建新的Bootstrap行
@@ -25,7 +27,7 @@ $(document).ready(function() {
                 var money = post.x_metadata.amount;
                 var postId = post.id;
 
-                var mediaUrl = 'https://oliver0502api.com/wp-json/wp/v2/media/' + featuredMediaId+ '?size=medium';
+                var mediaUrl = 'https://oliver0502api.com/wp-json/wp/v2/media/' + featuredMediaId;
                 mediaUrl += (mediaUrl.indexOf('?') === -1 ? '?' : '&') + 'timestamp=' + timestamp;
 
                 fetch(mediaUrl)
@@ -36,13 +38,13 @@ $(document).ready(function() {
                     var col;
         
                     // 使用Bootstrap的斷點來判斷螢幕大小
-                    if ($(window).width() >= 992) {  // 大於或等於992px的大屏幕
+                    if ($(window).width() >= 1000) {  // 大於或等於992px的大屏幕
                         col = $('<div class="col-lg-4 grid-item">');
                     } else {  // 小於992px的較小螢幕
-                        col = $('<div class="col-md-6 grid-item">');
+                        col = $('<div class="col-6 grid-item">');
                     }
 
-                    var card = $('<div class="card shadow-sm">');
+                    var card = $('<div class="card">');
                     var imageCell = $('<div class="img" text-align: center>').html('<a href="post.html?id=' + postId + '"><img class="img-fluid" src="' + featuredImageUrl + '"></a>');
                     var card_body = $('<div class="card-body">');
 
@@ -54,12 +56,13 @@ $(document).ready(function() {
                     col.append(card);
 
                     row.append(col);  // 將每個col添加到行中
+                    tableRow.append(row);
 
                     // 如果已經有3個col在行中，創建新的行
-                    if (row.children().length === 3) {
-                        tableRow.append(row);
-                        row = $('<div class="row">');  // 重新創建新的Bootstrap行
-                    }
+                    // if (row.children().length === 3) {
+                    //     tableRow.append(row);
+                    //     row = $('<div class="row">');  // 重新創建新的Bootstrap行
+                    // }
                 })
                 .catch(error => {
                     console.log('獲取特色圖片URL失敗：', error);
@@ -67,9 +70,9 @@ $(document).ready(function() {
             });
 
             // 如果最後一行沒有填滿3個col，則添加該行
-            if (row.children().length > 0) {
-                tableRow.append(row);
-            }
+            // if (row.children().length > 0) {
+            //     tableRow.append(row);
+            // }
         })
         .catch(error => {
             console.log('請求失敗：', error);
