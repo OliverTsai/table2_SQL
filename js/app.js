@@ -46,16 +46,21 @@ function displayUserInfo() {
 
 function setupUserButtons() {
     // 有登入的介面
-    var createTXT = document.createElement('button');
-    createTXT.textContent = '賣方中心';
-    createTXT.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
-    createTXT.setAttribute('data-bs-toggle', 'modal');
-    // 添加点击事件监听器
-    createTXT.addEventListener('click', function () {
-        // 在这里添加按钮点击后的操作
-        window.location.href = 'seller.html';
-    });
-    document.getElementById('create_txt').appendChild(createTXT);
+    const userRoles = localStorage.getItem('user_Roles')
+    console.log(userRoles)
+    // 設定非遊客才顯示按鈕
+    if(userRoles != 'subscriber'){
+        var createTXT = document.createElement('button');
+        createTXT.textContent = '賣方中心';
+        createTXT.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
+        createTXT.setAttribute('data-bs-toggle', 'modal');
+        // 添加点击事件监听器
+        createTXT.addEventListener('click', function () {
+            // 在这里添加按钮点击后的操作
+            window.location.href = 'seller.html';
+        });
+        document.getElementById('create_txt').appendChild(createTXT);
+    }
 
     var outButton = document.createElement('button');
     outButton.textContent = '登出';
@@ -139,14 +144,14 @@ loginButton.addEventListener('click', async () => {
                         alert('抓取資料失敗。請稍後再試。');
                     });
                 }else{
-                    lert('沒有憑證!');
+                    alert('帳密錯誤!');
                     window.location.reload();
                 }
                 
             })
             .catch(error => {
                 console.error('Login error:', error)
-                lert('帳密錯誤!');
+                alert('沒有憑證!');
                 window.location.reload();
             });
 });
@@ -158,11 +163,13 @@ registerButton.addEventListener('click', async () => {
     const registerName = document.getElementById('register_username').value;
     const registerEmail = document.getElementById('register_email').value;
     const registerPassword = document.getElementById('register_password').value;
+    const userRole = document.getElementById('user_role').value;
 
     const formData = new FormData();
     formData.append('username', registerName);
     formData.append('email', registerEmail);
     formData.append('password', registerPassword);
+    formData.append('role', userRole);
 
     try {
         const response = await fetch(apiUrl+'wp-json/register-apis/finalrope/register-call', {
