@@ -35,7 +35,7 @@ function renderUserArticles(posts) {
             const mediaResponse = await fetch(mediaUrl).then(response => response.json());
             const featuredImageUrl = mediaResponse.source_url;
 
-            const colSizeClass = window.innerWidth >= 1000 ? 'col-lg-4' : 'col-12';
+            const colSizeClass = window.innerWidth >= 1000 ? 'col-lg-4' : 'col-6';
 
             const col = $(`<div class="col ${colSizeClass} grid-item text-center mb-4">`);
             const card = $('<div class="card">');
@@ -130,6 +130,7 @@ async function uploadImage(file) {
 
         return await response.json();
     } catch (error) {
+        alert('沒有裁切後的圖片!');
         console.log('圖片新增失敗');
         console.error(error);
     }
