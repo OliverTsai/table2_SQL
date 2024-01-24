@@ -8,7 +8,8 @@ $(document).ready(() => {
 
 async function fetchUserArticles() {
     try {
-        const response = await fetch(`${sellerUrl}wp-json/wp/v2/posts?author=${userID}`);
+        const timestamp = new Date().getTime(); // 取得當前的 timestamp
+        const response = await fetch(`${sellerUrl}wp-json/wp/v2/posts?author=${userID}&timestamp=${timestamp}`);
         const posts = await response.json();
 
         if (posts.length > 0) {
