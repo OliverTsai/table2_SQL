@@ -186,6 +186,7 @@ registerButton.addEventListener('click', async () => {
         }
 
     } catch (error) {
+        alert('已經有這個帳號!');
         console.error('Error:', error);
         document.getElementById('result').textContent = "Error: Registration Failed";
     }
