@@ -91,7 +91,10 @@ async function uploadFile() {
             postData.append('user_id', userID);
             postData.append('featured_image', localStorage.getItem('imageID'));
             postData.append('money', money);
-            postData.append('category', category);
+            // 將分類 ID 存在陣列中
+            const categories = ['5', category];
+            // 將陣列轉換為 JSON 字串
+            postData.append('categories', JSON.stringify(categories));
 
             const response = await fetch(`${sellerUrl}wp-json/wp/v2/rae/post/create`, {
                 method: 'POST',
@@ -175,10 +178,10 @@ async function deleteMedia(mediaId) {
 }
 
 // 將base64轉換為File物件
-function urltoFile(url, filename, mimeType){
+function urltoFile(url, filename, mimeType) {
     return (fetch(url)
-        .then(function(res){return res.arrayBuffer();})
-        .then(function(buf){return new File([buf], filename, {type:mimeType});})
+        .then(function (res) { return res.arrayBuffer(); })
+        .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
     );
 }
 
@@ -187,73 +190,73 @@ var imgNewHeight;
 var imgNewSize = 150;  // k
 var $t = $('#tailoringImg');
 
-$('#file').change(function(){
-  let file = this.files[0];
-  if (file) {
-    let reader = new FileReader();
-    reader.onload = function(evt) {
-      let imgSrc = evt.target.result;
-      $t.cropper('replace', imgSrc, false);
+$('#file').change(function () {
+    let file = this.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (evt) {
+            let imgSrc = evt.target.result;
+            $t.cropper('replace', imgSrc, false);
+        }
+        reader.readAsDataURL(file);
     }
-    reader.readAsDataURL(file);
-  }
 });
 
 // cropper圖片裁剪
 $t.cropper({
-  aspectRatio : 800/600,  // 預設比例
-  preview : '#previewImg',  // 預覽檢視
-  guides : false,   // 裁剪框的虛線(九宮格)
-  autoCropArea : 0.5, // 0-1之間的數值，定義自動剪裁區域的大小，預設0.8
-  dragMode: 'crop', // 拖曳模式 crop(Default,新增裁剪框) / move(移動裁剪框&圖片) / none(無動作)
-  cropBoxResizable : true, // 是否有裁剪框調整四邊八點
-  movable : true, // 是否允許移動圖片
-  zoomable : true, // 是否允許縮放圖片大小
-  rotatable : false,   // 是否允許旋轉圖片
-  zoomOnWheel : true, // 是否允許通過滑鼠滾輪來縮放圖片
-  zoomOnTouch : true, // 是否允許通過觸控移動來縮放圖片
-  ready : function(e) {  
-    console.log('ready!');
-  }
+    aspectRatio: 800 / 600,  // 預設比例
+    preview: '#previewImg',  // 預覽檢視
+    guides: false,   // 裁剪框的虛線(九宮格)
+    autoCropArea: 0.5, // 0-1之間的數值，定義自動剪裁區域的大小，預設0.8
+    dragMode: 'crop', // 拖曳模式 crop(Default,新增裁剪框) / move(移動裁剪框&圖片) / none(無動作)
+    cropBoxResizable: true, // 是否有裁剪框調整四邊八點
+    movable: true, // 是否允許移動圖片
+    zoomable: true, // 是否允許縮放圖片大小
+    rotatable: false,   // 是否允許旋轉圖片
+    zoomOnWheel: true, // 是否允許通過滑鼠滾輪來縮放圖片
+    zoomOnTouch: true, // 是否允許通過觸控移動來縮放圖片
+    ready: function (e) {
+        console.log('ready!');
+    }
 });
 
-$('#sureCut').click(function(){
-  if (!$t.attr("src")) {
-    return false;
-  } else {
-    var cropImg = $('#tailoringImg').cropper('getData');
-    console.log('cropImg', cropImg);
-    imgNewHeight = Math.round(imgNewWidth * cropImg.height / cropImg.width);
-    var cvs = $t.cropper('getCroppedCanvas');// 獲取被裁剪後的canvas
-    console.log('cvs', cvs);
-    var context = cvs.getContext('2d');
-    console.log('context', context);
-    var base64 = cvs.toDataURL('image/jpeg'); // 轉換為base64
-    var compressRatio = 102;
-    
-    var img = new Image();
-    img.src = base64;
-    img.onload = function() {
-      var newImg;
-      // 使用 canvas 調整圖片寬高
-      cvs.width = imgNewWidth;
-      cvs.height = imgNewHeight;
-      context.clearRect(0, 0, imgNewWidth, imgNewHeight);
-      // 調整圖片尺寸
-      context.drawImage(img, 0, 0, imgNewWidth, imgNewHeight);
-      // 顯示新圖片
-      $('.result').show();
-      do {
-        compressRatio -= 2;
-        console.log('compressRatio', compressRatio);
-        newImg = cvs.toDataURL("image/jpeg", compressRatio / 100);
-      } while (Math.round(0.75 * newImg.length / 1000) > imgNewSize);
-      console.log('compressRatio', compressRatio / 100);
-      
-      $('.result p').text('新圖片尺寸 ' + imgNewWidth + 'x' + imgNewHeight);
-      $('.result span').text('檔案大小約 ' + Math.round(0.75 * newImg.length / 1000) + 'k / ' + Math.round(0.75 * base64.length / 1000) + 'k');
-      $('.result img').attr("src", newImg);
-      $('.result input').val(newImg);
-    };
-  }
+$('#sureCut').click(function () {
+    if (!$t.attr("src")) {
+        return false;
+    } else {
+        var cropImg = $('#tailoringImg').cropper('getData');
+        console.log('cropImg', cropImg);
+        imgNewHeight = Math.round(imgNewWidth * cropImg.height / cropImg.width);
+        var cvs = $t.cropper('getCroppedCanvas');// 獲取被裁剪後的canvas
+        console.log('cvs', cvs);
+        var context = cvs.getContext('2d');
+        console.log('context', context);
+        var base64 = cvs.toDataURL('image/jpeg'); // 轉換為base64
+        var compressRatio = 102;
+
+        var img = new Image();
+        img.src = base64;
+        img.onload = function () {
+            var newImg;
+            // 使用 canvas 調整圖片寬高
+            cvs.width = imgNewWidth;
+            cvs.height = imgNewHeight;
+            context.clearRect(0, 0, imgNewWidth, imgNewHeight);
+            // 調整圖片尺寸
+            context.drawImage(img, 0, 0, imgNewWidth, imgNewHeight);
+            // 顯示新圖片
+            $('.result').show();
+            do {
+                compressRatio -= 2;
+                console.log('compressRatio', compressRatio);
+                newImg = cvs.toDataURL("image/jpeg", compressRatio / 100);
+            } while (Math.round(0.75 * newImg.length / 1000) > imgNewSize);
+            console.log('compressRatio', compressRatio / 100);
+
+            $('.result p').text('新圖片尺寸 ' + imgNewWidth + 'x' + imgNewHeight);
+            $('.result span').text('檔案大小約 ' + Math.round(0.75 * newImg.length / 1000) + 'k / ' + Math.round(0.75 * base64.length / 1000) + 'k');
+            $('.result img').attr("src", newImg);
+            $('.result input').val(newImg);
+        };
+    }
 });

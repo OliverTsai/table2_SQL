@@ -1,16 +1,355 @@
+body {
+    padding: 15px;
+}
+
 .img-fluid {
     width: 400px;
     height: 300px;
     object-fit: cover;
 }
+
 .div.img {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .actions .crop .box #previewImg {
     width: 100%;
     height: 100%;
     margin: auto;
     overflow: hidden;
+}
+
+.flex-item {
+    /* border: 2px solid blue; */
+    /* Flex items border */
+    flex-basis: calc(50% - 10px);
+    /* Adjusts the initial width for the two items */
+    margin: 5px;
+}
+
+.carousel {
+    height: 300px;
+    /* Or any height you prefer */
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically ; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    min-height: 200px;
+}
+
+.swiperImg01 {
+    max-width: 100%;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+    background-image: url('../img/banny05.png');
+}
+
+.swiperImg02 {
+    max-width: 100%;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+    background-image: url('../img/banny06.png');
+}
+
+
+@media only screen and (max-width: 768px) {
+    .swiperImg01 {
+        background-image: url('../img/banny01.jpg');
+    }
+
+    .swiperImg02 {
+        background-image: url('../img/banny02.jpg');
+    }
+}
+
+.section-header {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.swiper-btns {
+    display: flex;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    position: relative;
+    right: 0;
+    left: 0;
+}
+
+/* 上下排列 */
+.myField {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+
+    &>p {
+        color: black;
+    }
+}
+
+/* 從左到右 */
+.myRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    &>a {
+        width: 8rem;
+        text-align: center;
+    }
+}
+
+/* 左右分散 */
+.myRowSpace {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &.bdYellow {
+        background: #f1dc1f;
+    }
+}
+
+/* 置中對齊 */
+.myRowCenter {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 10px;
+}
+
+.headerBg {
+    background: #fff;
+    color: black;
+}
+
+.headerTitle {
+    height: 40px;
+    width: 200px;
+
+    >img {
+        border-radius: 10px;
+    }
+}
+
+.titleImg {
+    width: 150px;
+    height: 150px;
+
+    >img {
+        width: 100%;
+        height: 100%;
+        border-radius: 75px;
+    }
+
+}
+
+/* 分類下拉選單 */
+.category-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.category-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: #f9f9f9;
+    min-width: 100px;
+    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+    z-index: 10;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.titleBtn01 {
+    color: #fff;
+    background: #4dc7a0;
+}
+
+.titleBtn02 {
+    color: #4dc7a0;
+    background: #fff;
+    border: 1px solid #4dc7a0;
+}
+
+.owl-theme .item01 {
+    height: 200px;
+    background: #4dc7a0;
+    background-image: url('../img/banny05.png');
+    border-radius: 5px;
+    border: 0px;
+}
+
+.owl-theme .item02 {
+    height: 200px;
+    background: #4dc7a0;
+    background-image: url('../img/banny06.png');
+    border-radius: 5px;
+}
+
+.owl-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.owl-carousel .item {
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.4375rem;
+    margin-top: 0rem;
+}
+
+.owl-carousel .item img {
+    width: 100%;
+    /* 圖片寬度填滿輪播器容器 */
+    height: auto;
+    /* 圖片高度自動調整 */
+    border-radius: 5px;
+    /* 圖片邊框圓角 */
+}
+
+.owl-carousel03 .item {
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.4375rem;
+    margin-top: 0rem;
+}
+
+.owl-theme .item {
+    height: 200px;
+    background: #4dc7a0;
+    border-radius: 5px;
+}
+
+/* 手機畫面 */
+.menu-btn {
+    display: none;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.menu-icon {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 6px 0;
+}
+
+.menu {
+    display: none;
+}
+
+.menu.active {
+    display: block;
+}
+
+/* 排列的CSS */
+.row.list {
+    gap: 10px;
+}
+
+.card.list {
+    border-radius: 10px;
+    gap: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .owl-theme .item01 {
+        background-image: url('../img/phoneBanny01.png');
+        height: 135px;
+        border-radius: 5px;
+    }
+
+    .owl-theme .item02 {
+        background-image: url('../img/phoneBanny02.png');
+        height: 135px;
+        border-radius: 5px;
+    }
+
+    .webCategory {
+        display: none;
+    }
+
+    .myRow {
+        display: none;
+    }
+
+    .socialButton {
+        display: none;
+    }
+
+    .myRowSpace {
+        justify-content: center;
+    }
+
+    .dropdown {
+        display: block;
+    }
 }

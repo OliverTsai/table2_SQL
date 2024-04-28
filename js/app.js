@@ -21,19 +21,19 @@ function fetchUserInfo(token) {
     fetch(`${apiUrl}wp-json/jwt-auth/v1/token/validate`, {
         method: 'POST',
         headers: {
-        'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
         },
     })
-    .then(response => response.json())
-    .then(tokenInfo => {
-        console.log(tokenInfo);
-        // 在這裡處理 Token 狀態的資訊
-        if(!tokenInfo.data){
-            alert('時間太久 重新登入');
-            handleInit()
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(tokenInfo => {
+            console.log(tokenInfo);
+            // 在這裡處理 Token 狀態的資訊
+            if (!tokenInfo.data) {
+                alert('時間太久 重新登入');
+                handleInit()
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 // 顯示個人資料
@@ -47,12 +47,12 @@ function displayUserInfo() {
 function setupUserButtons() {
     // 有登入的介面
     const userRoles = localStorage.getItem('user_Roles')
-    console.log(userRoles)
+    // console.log(userRoles)
     // 設定非遊客才顯示按鈕
-    if(userRoles != 'subscriber'){
+    if (userRoles != 'subscriber') {
         var createTXT = document.createElement('button');
         createTXT.textContent = '賣方中心';
-        createTXT.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
+        createTXT.classList.add('btn', 'titleBtn01', 'me-2', 'd-md-block');
         createTXT.setAttribute('data-bs-toggle', 'modal');
         // 添加点击事件监听器
         createTXT.addEventListener('click', function () {
@@ -64,7 +64,7 @@ function setupUserButtons() {
 
     var outButton = document.createElement('button');
     outButton.textContent = '登出';
-    outButton.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
+    outButton.classList.add('btn', 'titleBtn02', 'me-2', 'd-md-block');
     document.getElementById('logout').appendChild(outButton);
 }
 
@@ -72,14 +72,15 @@ function setupLoginRegisterButtons() {
     // 沒登入的介面
     var loginButton = document.createElement('button');
     loginButton.textContent = '登入';
-    loginButton.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
+    // loginButton.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
+    loginButton.classList.add('btn', 'titleBtn01', 'me-2', 'd-md-block');
     loginButton.setAttribute('data-bs-toggle', 'modal');
     loginButton.setAttribute('data-bs-target', '#login_set');
     document.getElementById('login').appendChild(loginButton);
 
     var registerButton = document.createElement('button');
     registerButton.textContent = '註冊';
-    registerButton.classList.add('btn', 'btn-outline-light', 'me-2', 'd-md-block');
+    registerButton.classList.add('btn', 'titleBtn02', 'me-2', 'd-md-block');
     registerButton.setAttribute('data-bs-toggle', 'modal');
     registerButton.setAttribute('data-bs-target', '#register_set');
     document.getElementById('register').appendChild(registerButton);
@@ -105,31 +106,31 @@ loginButton.addEventListener('click', async () => {
     const loginPassword = document.getElementById('login_password').value;
 
     fetch(`${apiUrl}wp-json/jwt-auth/v1/token`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: loginName,
-                    password: loginPassword,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.token){
-                    // console.log(data)
-                    token = data.token;
-                    localStorage.setItem('token', token);
-                    fetch(`${apiUrl}wp-json/wp/v2/rae/user/login`,{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            'username': loginName,
-                            'password': loginPassword
-                        })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: loginName,
+            password: loginPassword,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.token) {
+                // console.log(data)
+                token = data.token;
+                localStorage.setItem('token', token);
+                fetch(`${apiUrl}wp-json/wp/v2/rae/user/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'username': loginName,
+                        'password': loginPassword
                     })
+                })
                     .then(response => response.json())
                     .then(data => {
                         localStorage.setItem('user_ID', data.user.ID);
@@ -143,17 +144,17 @@ loginButton.addEventListener('click', async () => {
                         console.error('抓取資料失敗：', error);
                         alert('抓取資料失敗。請稍後再試。');
                     });
-                }else{
-                    alert('帳密錯誤!');
-                    window.location.reload();
-                }
-                
-            })
-            .catch(error => {
-                console.error('Login error:', error)
-                alert('沒有憑證!');
+            } else {
+                alert('帳密錯誤!');
                 window.location.reload();
-            });
+            }
+
+        })
+        .catch(error => {
+            console.error('Login error:', error)
+            alert('沒有憑證!');
+            window.location.reload();
+        });
 });
 
 // 註冊
@@ -172,7 +173,7 @@ registerButton.addEventListener('click', async () => {
     formData.append('role', userRole);
 
     try {
-        const response = await fetch(apiUrl+'wp-json/register-apis/finalrope/register-call', {
+        const response = await fetch(apiUrl + 'wp-json/register-apis/finalrope/register-call', {
             method: 'POST',
             body: formData
         });
@@ -180,7 +181,7 @@ registerButton.addEventListener('click', async () => {
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
-        }else{
+        } else {
             alert('註冊成功！');
             window.location.href = 'index.html';
         }
