@@ -61,16 +61,25 @@
         <div class="myRowSpace container mt-2">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <div class="myRow">
-                        <div class="dropdown">
-                            <button type="button" class="btn titleBtn01">分類</button>
-                            <div class="dropdown-menu" id="category">
-                                <a href="#" value="all">全部</a>
-                                <a href="#" value="2">食品</a>
-                                <a href="#" value="3">運動</a>
-                                <a href="#" value="4">3C產品</a>
-                            </div>
+                    <div class="dropdown">
+                        <button type="button" class="btn titleBtn01">分類</button>
+                        <div class="dropdown-menu" id="category">
+                            <a href="showcase.html?value=5" value="5">全部</a>
+                            <a href="showcase.html?value=6" value="6">男裝</a>
+                            <a href="showcase.html?value=7" value="7">女裝</a>
+                            <a href="showcase.html?value=8" value="8">洋裝</a>
+                            <a href="showcase.html?value=9" value="9">運動裝</a>
+                            <a href="showcase.html?value=10" value="10">家居服</a>
+                            <a href="showcase.html?value=11" value="11">女士沙灘裝</a>
+                            <a href="showcase.html?value=12" value="12">上衣</a>
+                            <a href="showcase.html?value=13" value="13">褲裙</a>
+                            <a href="showcase.html?value=14" value="14">首飾</a>
+                            <a href="showcase.html?value=15" value="15">配件</a>
+                            <a href="showcase.html?value=16" value="16">包包</a>
+                            <a href="showcase.html?value=17" value="17">鞋類</a>
                         </div>
+                    </div>
+                    <div class="myRow">
                         <a href="index.html" class="nav-link text-secondary">男裝</a>
                         <a href="index.html" class="nav-link text-secondary">女裝</a>
                         <a href="index.html" class="nav-link text-secondary">洋裝</a>
@@ -179,10 +188,15 @@
                         <input type="text" name="title" id="title" class="form-control">
                     </div>
                     <div class="my-3">
+                        <label for="fruit">使用性別：</label>
+                        <select id="add-category-sex">
+                            <option value="6">男</option>
+                            <option value="7">女</option>
+                        </select>
+                    </div>
+                    <div class="my-3">
                         <label for="fruit">選擇類別：</label>
                         <select id="add-category">
-                            <option value="6">男裝</option>
-                            <option value="7">女裝</option>
                             <option value="8">洋裝</option>
                             <option value="9">運動裝</option>
                             <option value="10">家居服</option>
@@ -200,7 +214,7 @@
                         <input type="file" name="file" id="file" class="form-control">
                         <hr>
                         <div class="crop">
-                            <div class="box tailoring-box">
+                            <div class="box tailoring-box h-100">
                                 <img id="tailoringImg" src="">
                             </div>
                             圖片預覽：
@@ -234,20 +248,24 @@
             </div>
         </div>
     </div>
+    <!-- 主頁開始 -->
+    <div class="container">
+        <div class="myRowCenter mt-3">
+            <h3>個人產品列表</h3>
+            <button id="openTxtSet" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#txt_set">
+                新增產品
+            </button>
+        </div>
+        <div class="row mt-3">
+            <div id="members-articles"></div>
+        </div>
 
-    <h1>個人產品列表</h1>
-    <button id="openTxtSet" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#txt_set">
-        新增產品
-    </button>
-    <div class="row mt-3">
-        <div id="members-articles"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/seller.js"></script>
+        <!-- <script src="register.js"></script> -->
     </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/seller.js"></script>
-    <!-- <script src="register.js"></script> -->
 </body>
 
 </html>

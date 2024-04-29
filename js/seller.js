@@ -74,6 +74,7 @@ async function uploadFile() {
     const title = document.getElementById('title').value;
     const text = document.getElementById('text').value;
     const category = document.getElementById('add-category').value;
+    const categorySex = document.getElementById('add-category-sex').value;
     const money = document.getElementById('money').value;
 
     try {
@@ -92,7 +93,7 @@ async function uploadFile() {
             postData.append('featured_image', localStorage.getItem('imageID'));
             postData.append('money', money);
             // 將分類 ID 存在陣列中
-            const categories = ['5', category];
+            const categories = ['5', categorySex, category];
             // 將陣列轉換為 JSON 字串
             postData.append('categories', JSON.stringify(categories));
 

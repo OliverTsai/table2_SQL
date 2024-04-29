@@ -313,6 +313,8 @@ body {
 /* 排列的CSS */
 .row.list {
     gap: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .card.list {
@@ -349,7 +351,11 @@ body {
         justify-content: center;
     }
 
-    .dropdown {
+    /* .dropdown {
         display: block;
+    } */
+    .myRowSpace {
+        display: flex;
+        justify-content: space-between;
     }
 }
