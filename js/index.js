@@ -16,7 +16,6 @@ $(document).ready(function () {
             url += '?categories=5';
         } else {
             url += '?categories=' + selectedCategory;
-            console.log(selectedCategory)
         }
 
         var timestamp = new Date().getTime();
@@ -25,7 +24,6 @@ $(document).ready(function () {
         fetch(url)
             .then(response => response.json())
             .then(posts => {
-                console.log(posts)
                 tableRow.empty();
 
                 var row = $('<div class="row">');  // 創建新的Bootstrap行

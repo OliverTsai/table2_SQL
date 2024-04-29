@@ -26,7 +26,7 @@ function fetchUserInfo(token) {
     })
         .then(response => response.json())
         .then(tokenInfo => {
-            console.log(tokenInfo);
+            // console.log(tokenInfo);
             // 在這裡處理 Token 狀態的資訊
             if (!tokenInfo.data) {
                 alert('時間太久 重新登入');
