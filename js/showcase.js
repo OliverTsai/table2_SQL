@@ -54,9 +54,9 @@ $(document).ready(function () {
 
                             // 使用Bootstrap的斷點來判斷螢幕大小
                             if ($(window).width() >= 1000) {  // 大於或等於992px的大屏幕
-                                col = $('<div class="col-lg-4 grid-item">');
+                                col = $('<div class="col-lg-4 grid-item mb-4">');
                             } else {  // 小於992px的較小螢幕
-                                col = $('<div class="col-6 grid-item">');
+                                col = $('<div class="col-6 grid-item mb-3">');
                             }
 
                             var card = $('<div class="card list">');
@@ -71,7 +71,7 @@ $(document).ready(function () {
                             col.append(card);
 
                             row.append(col);  // 將每個col添加到行中
-                            tableRow.append(row);
+                            tableRow.append(col);
 
                             // 如果已經有3個col在行中，創建新的行
                             // if (row.children().length === 3) {
