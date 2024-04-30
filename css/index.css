@@ -3,9 +3,10 @@ body {
 }
 
 .img-fluid {
-    width: 400px;
+    width: 100%;
     height: 300px;
     object-fit: cover;
+    border-radius: 5px 5px 0 0;
 }
 
 .div.img {
@@ -347,9 +348,9 @@ body {
         display: none;
     }
 
-    .myRowSpace {
+    /* .myRowSpace {
         justify-content: center;
-    }
+    } */
 
     /* .dropdown {
         display: block;
@@ -357,5 +358,12 @@ body {
     .myRowSpace {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+    }
+
+    .img-fluid {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
     }
 }

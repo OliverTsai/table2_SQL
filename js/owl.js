@@ -8,7 +8,7 @@ $(".owl-carousel").owlCarousel({
             autoplay: true   //自動輪播
         },
         600: {
-            items: 3, // 螢幕大小為 600~1000 顯示 3 個項目
+            items: 1, // 螢幕大小為 600~1000 顯示 3 個項目
             autoplay: true
         },
         1000: {
