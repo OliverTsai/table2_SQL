@@ -323,6 +323,36 @@ body {
     gap: 10px;
 }
 
+/* 商品詳細的CSS */
+.postRow {
+    display: flex;
+    gap: 10px;
+
+    .postTextBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        gap: 10px;
+    }
+
+    .postImgBox {
+        &>img {
+            border-radius: 10px;
+        }
+    }
+
+    .postButtonBox {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+
+        &>button {
+            width: 47%;
+        }
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .owl-theme .item01 {
         background-image: url('../img/phoneBanny01.png');
@@ -366,4 +396,16 @@ body {
         height: auto;
         object-fit: cover;
     }
+
+    .postRow {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .postRow {
+        .postTextBox {
+            width: 100%;
+        }
+    }
+
 }

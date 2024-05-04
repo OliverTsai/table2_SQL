@@ -108,6 +108,7 @@
                 <div id="register"></div>
                 <div id="user_name"></div>
                 <div id="create_txt"></div>
+                <div id="shoppingCar"></div>
                 <div id="logout"></div>
             </div>
         </div>
@@ -128,11 +129,11 @@
                 <div class="modal-body">
                     <!-- <form action=""> -->
                     <div class="my-3">
-                        <label for="">名稱</label>
+                        <label for="login_name">名稱</label>
                         <input type="text" name="username" id="login_name" class="form-control" placeholder="Name">
                     </div>
                     <div class="my-3">
-                        <label for="">密碼</label>
+                        <label for="login_password">密碼</label>
                         <input type="password" name="password" id="login_password" class="form-control"
                             placeholder="Password">
                     </div>
@@ -160,22 +161,22 @@
                 <div class="modal-body">
                     <!-- <form action=""> -->
                     <div class="my-3">
-                        <label for="">名稱</label>
+                        <label for="register_username">名稱</label>
                         <input type="username" name="username" id="register_username" class="form-control"
                             placeholder="name@example.com">
                     </div>
                     <div class="my-3">
-                        <label for="">信箱</label>
+                        <label for="register_email">信箱</label>
                         <input type="email" name="email" id="register_email" class="form-control"
                             placeholder="name@example.com">
                     </div>
                     <div class="my-3">
-                        <label for="">密碼</label>
+                        <label for="register_password">密碼</label>
                         <input type="password" name="password" id="register_password" class="form-control"
                             placeholder="Password">
                     </div>
                     <div class="my-3">
-                        <label for="">身份</label>
+                        <label for="user_role">身份</label>
                         <select id="user_role" class="form-select">
                             <option value="1">買家</option>
                             <option value="2">賣家</option>
@@ -205,11 +206,11 @@
                 <div class="modal-body">
                     <!-- <form action=""> -->
                     <div class="my-3">
-                        <label for="">產品標題</label>
+                        <label for="title">產品標題</label>
                         <input type="text" name="title" id="title" class="form-control">
                     </div>
                     <div class="my-3">
-                        <label for="fruit">選擇類別：</label>
+                        <label for="add-category">選擇類別：</label>
                         <select id="add-category">
                             <option value="2">食品</option>
                             <option value="3">運動</option>
@@ -217,7 +218,7 @@
                         </select>
                     </div>
                     <div class="my-3">
-                        <label for="">產品圖片</label>
+                        <label for="file">產品圖片</label>
                         <input type="file" name="file" id="file" class="form-control">
                     </div>
                     <div class="my-3">
@@ -225,13 +226,38 @@
                         <textarea name="text" id="text" class="form-control"></textarea>
                     </div>
                     <div class="my-3">
-                        <label for="">金額</label>
+                        <label for="money">金額</label>
                         <input type="number" name="title" id="money" class="form-control">
                     </div>
                     <div class="my-3">
                         <button class="btn btn-primary" type="submit" id="save_text">上傳</button>
                     </div>
                     <!-- </form> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 購物車 -->
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">購物車</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="show-cart table">
+
+                    </table>
+                    <div>總金額: $<span class="total-cart"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary">付款</button>
                 </div>
             </div>
         </div>
@@ -247,6 +273,7 @@
 
     <script src="js/app.js"></script>
     <script src="js/showcase.js"></script>
+    <script src="js/post.js"></script>
 
 </body>
 

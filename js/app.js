@@ -60,6 +60,23 @@ function setupUserButtons() {
             window.location.href = 'seller.html';
         });
         document.getElementById('create_txt').appendChild(createTXT);
+    } else {
+        // 创建按钮元素
+        var carButton = document.createElement('button');
+        carButton.setAttribute('type', 'button');
+        carButton.setAttribute('class', 'btn btn-primary');
+        carButton.setAttribute('data-bs-toggle', 'modal');
+        carButton.setAttribute('data-bs-target', '#cart');
+        carButton.textContent = '購物車：';
+
+        // 创建按钮内的文字内容
+        var carSpan = document.createElement('span');
+        carSpan.setAttribute('class', 'total-count');
+        carSpan.textContent = '0'; // 初始数量
+
+        // 将 span 元素添加到按钮内
+        carButton.appendChild(carSpan);
+        document.getElementById('shoppingCar').appendChild(carButton);
     }
 
     var outButton = document.createElement('button');
